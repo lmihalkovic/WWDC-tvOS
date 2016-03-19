@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		4DB2C9A71CBD8A27001356C9 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB2C9A51CBD8A27001356C9 /* Realm.framework */; };
 		4DB2C9A81CBD8A27001356C9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB2C9A61CBD8A27001356C9 /* RealmSwift.framework */; };
+		4DD646E81CBD8B2A006296DE /* AlamofireExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646E51CBD8B2A006296DE /* AlamofireExt.swift */; };
+		4DD646E91CBD8B2A006296DE /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646E61CBD8B2A006296DE /* Star.swift */; };
+		4DD646EA1CBD8B2A006296DE /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646E71CBD8B2A006296DE /* TableModel.swift */; };
+		4DD646F51CBD8B3D006296DE /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646F11CBD8B3D006296DE /* AppModel.swift */; };
+		4DD646F61CBD8B3D006296DE /* MainSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646F21CBD8B3D006296DE /* MainSelectorViewController.swift */; };
+		4DD646F71CBD8B3D006296DE /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646F31CBD8B3D006296DE /* Search.swift */; };
+		4DD646F81CBD8B3D006296DE /* SessionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646F41CBD8B3D006296DE /* SessionsViewController.swift */; };
+		4DD646FA1CBD8B7A006296DE /* UIControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD646F91CBD8B7A006296DE /* UIControls.swift */; };
+		4DD646FB1CBD8BF5006296DE /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB2C9A51CBD8A27001356C9 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4DD646FC1CBD8BF5006296DE /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB2C9A61CBD8A27001356C9 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DD64C94B1C2B131100960611 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD64C94A1C2B131100960611 /* TVServices.framework */; };
 		DD64C94E1C2B131100960611 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD64C94D1C2B131100960611 /* ServiceProvider.swift */; };
 		DD64C9521C2B131100960611 /* WWDC Top Shelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DD64C9481C2B131100960611 /* WWDC Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -101,6 +111,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4DD646FB1CBD8BF5006296DE /* Realm.framework in Embed Frameworks */,
+				4DD646FC1CBD8BF5006296DE /* RealmSwift.framework in Embed Frameworks */,
 				DDE4901E1BFF6381001F157B /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -122,6 +134,14 @@
 /* Begin PBXFileReference section */
 		4DB2C9A51CBD8A27001356C9 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = vendor/xcode7.3/Realm.framework; sourceTree = "<group>"; };
 		4DB2C9A61CBD8A27001356C9 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = vendor/xcode7.3/RealmSwift.framework; sourceTree = "<group>"; };
+		4DD646E51CBD8B2A006296DE /* AlamofireExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlamofireExt.swift; path = WWDC/Core/AlamofireExt.swift; sourceTree = "<group>"; };
+		4DD646E61CBD8B2A006296DE /* Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Star.swift; path = WWDC/Core/Star.swift; sourceTree = "<group>"; };
+		4DD646E71CBD8B2A006296DE /* TableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableModel.swift; path = WWDC/Core/TableModel.swift; sourceTree = "<group>"; };
+		4DD646F11CBD8B3D006296DE /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		4DD646F21CBD8B3D006296DE /* MainSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSelectorViewController.swift; sourceTree = "<group>"; };
+		4DD646F31CBD8B3D006296DE /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		4DD646F41CBD8B3D006296DE /* SessionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsViewController.swift; sourceTree = "<group>"; };
+		4DD646F91CBD8B7A006296DE /* UIControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControls.swift; sourceTree = "<group>"; };
 		DD64C9481C2B131100960611 /* WWDC Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WWDC Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD64C94A1C2B131100960611 /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
 		DD64C94D1C2B131100960611 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
@@ -193,6 +213,7 @@
 		DD8FB5611C02240A0040FEF6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4DD646F91CBD8B7A006296DE /* UIControls.swift */,
 				DD8FB5621C02241F0040FEF6 /* PlayerBuilder.swift */,
 			);
 			name = Helpers;
@@ -224,6 +245,8 @@
 			children = (
 				DD8FB5611C02240A0040FEF6 /* Helpers */,
 				DDE490241BFF688C001F157B /* Controllers */,
+				4DD646F11CBD8B3D006296DE /* AppModel.swift */,
+				4DD646F31CBD8B3D006296DE /* Search.swift */,
 				DD9A554A1BFE8511004869A4 /* AppDelegate.swift */,
 				DD9A554E1BFE8511004869A4 /* Main.storyboard */,
 				DD9A55511BFE8511004869A4 /* Assets.xcassets */,
@@ -235,6 +258,9 @@
 		DDE48FF11BFF61FE001F157B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4DD646E51CBD8B2A006296DE /* AlamofireExt.swift */,
+				4DD646E61CBD8B2A006296DE /* Star.swift */,
+				4DD646E71CBD8B2A006296DE /* TableModel.swift */,
 				DD8FB5591C02210A0040FEF6 /* LiveEventObserver.swift */,
 				DDE490271BFF7BD1001F157B /* Models.swift */,
 				DDE490281BFF7BD1001F157B /* WWDCDatabase.swift */,
@@ -270,6 +296,8 @@
 		DDE490241BFF688C001F157B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4DD646F21CBD8B3D006296DE /* MainSelectorViewController.swift */,
+				4DD646F41CBD8B3D006296DE /* SessionsViewController.swift */,
 				DD9A554C1BFE8511004869A4 /* VideosViewController.swift */,
 				DDE490251BFF68A3001F157B /* DetailViewController.swift */,
 			);
@@ -465,14 +493,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD646F61CBD8B3D006296DE /* MainSelectorViewController.swift in Sources */,
 				DD9A554D1BFE8511004869A4 /* VideosViewController.swift in Sources */,
 				DD8FB55A1C02210A0040FEF6 /* LiveEventObserver.swift in Sources */,
 				DD8FB5631C02241F0040FEF6 /* PlayerBuilder.swift in Sources */,
+				4DD646E91CBD8B2A006296DE /* Star.swift in Sources */,
 				DDE4902A1BFF7BD1001F157B /* WWDCDatabase.swift in Sources */,
+				4DD646EA1CBD8B2A006296DE /* TableModel.swift in Sources */,
 				DD9A554B1BFE8511004869A4 /* AppDelegate.swift in Sources */,
+				4DD646F51CBD8B3D006296DE /* AppModel.swift in Sources */,
 				DDE490261BFF68A3001F157B /* DetailViewController.swift in Sources */,
+				4DD646F81CBD8B3D006296DE /* SessionsViewController.swift in Sources */,
+				4DD646E81CBD8B2A006296DE /* AlamofireExt.swift in Sources */,
 				DDE490231BFF63A4001F157B /* SwiftyJSON.swift in Sources */,
+				4DD646FA1CBD8B7A006296DE /* UIControls.swift in Sources */,
 				DDE490291BFF7BD1001F157B /* Models.swift in Sources */,
+				4DD646F71CBD8B3D006296DE /* Search.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

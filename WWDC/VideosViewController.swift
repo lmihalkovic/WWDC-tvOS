@@ -9,52 +9,66 @@
 import UIKit
 import RealmSwift
 
+typealias SessionMapper = ((Session) -> String)
+
 class VideosViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.remembersLastFocusedIndexPath = true
+        if let owner = self.parentViewController?.parentViewController as? SessionsViewController {
+            self.year = owner.year
+            self.navigationItem.title = year
+        }
         
+        tableView.remembersLastFocusedIndexPath = true
+      
         loadSessions()
     }
 
     // MARK: Data loading
 
-    var sessionYears: [Int]! {
-        guard let sessionGroups = sessionGroups else { return nil}
-        
-        return [Int](sessionGroups.keys).sort { $0 > $1 }
-    }
-    var sessionGroups: [Int:Results<Session>]! {
+    var year: String?
+    var allSessions: Results<Session>? {
         didSet {
-            guard sessionGroups != nil else { return }
-            
-            let previouslySelectedPath = tableView.indexPathForSelectedRow
-            
+            // refresh table
             tableView.reloadData()
-            
-            if sessionGroups.keys.count > 0 {
-                tableView.selectRowAtIndexPath(previouslySelectedPath ?? NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Top)
+        }
+    }
+    var sessionId: String?
+
+    private var _sessionGroupingMapper: SessionMapper? = { (session: Session) -> String in
+        return session.track
+    }
+    private var _tableModel: TableModel<Session>? = nil
+    var tableModel:TableModel<Session>! {
+        get {
+            if(_tableModel == nil) {
+                if let sessions = allSessions {
+                    _tableModel = TableModel(sessions, mapper:_sessionGroupingMapper)
+                }
             }
+            return _tableModel
         }
     }
     
     func loadSessions() {
         fetchLocalSessions()
-        
-        WWDCDatabase.sharedDatabase.sessionListChangedCallback = { newSessionKeys in
-            print("\(newSessionKeys.count) new session(s) available")
-
-            self.fetchLocalSessions()
-        }
-        WWDCDatabase.sharedDatabase.refresh()
     }
     
     func fetchLocalSessions() {
-        sessionGroups = WWDCDatabase.sharedDatabase.sessionsGroupedByYear
+        if let year = self.year {
+            allSessions = AppModel.sharedModel.sessionsMatchingYear(year)
+        }
     }
-    
+  
+    // MARK: Session filtering
+    @IBAction func yearSelectionChanged(sender: UISegmentedControl) {
+        _tableModel = nil
+        // refresh table
+        tableView.reloadData()
+    }
+
     // MARK: Table View
     
     private struct Storyboard {
@@ -63,37 +77,44 @@ class VideosViewController: UITableViewController {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return sessionGroups.keys.count
+        guard tableModel != nil else { return 0 }
+        return tableModel.countGroups
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "\(sessionYears[section])"
+        return "\(tableModel.groupName(section)!)"
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard sessionGroups != nil else { return 0 }
-
-        return sessionGroups[sessionYears[section]]!.count
+        guard tableModel != nil else { return 0 }
+        return tableModel.itemsInGroup(section)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.videoCellIdentifier)!
         
-        let sectionSessions = sessionGroups[sessionYears[indexPath.section]]!
-        let session = sectionSessions[indexPath.row]
-        cell.textLabel?.text = session.title
+        let session = tableModel.item(indexPath.row, inGroup: indexPath.section)
+        cell.textLabel?.text = session?.title
         
         return cell
     }
     
     // MARK: Session selection
 
+    var initialSelectionPath: NSIndexPath?
     var selectedSession: Session? {
         didSet {
             guard selectedSession != nil else { return }
-            
             performSegueWithIdentifier(Storyboard.detailSegueIdentifier, sender: nil)
         }
+    }
+    
+
+    override func indexPathForPreferredFocusedViewInTableView(tableView: UITableView) -> NSIndexPath? {
+        if let path = initialSelectionPath {
+            return path
+        }
+        return nil
     }
     
     override func tableView(tableView: UITableView, didUpdateFocusInContext context: UITableViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
@@ -112,20 +133,18 @@ class VideosViewController: UITableViewController {
     private func selectSessionAtIndexPath(indexPath: NSIndexPath) {
         tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .Middle)
         
-        let sectionSessions = sessionGroups[sessionYears[indexPath.section]]!
-        selectedSession = sectionSessions[indexPath.row]
+        selectedSession = tableModel.item(indexPath.row, inGroup: indexPath.section)
     }
     
     private func indexPathForSessionWithKey(key: String) -> NSIndexPath? {
-        guard let session = WWDCDatabase.sharedDatabase.realm.objectForPrimaryKey(Session.self, key: key) else { return nil }
+        guard let sessions = allSessions else { return nil }
         
-        var sections = [Int](sessionGroups.keys)
-        sections.sortInPlace { $0 > $1 }
-        
-        guard let section = sections.indexOf(session.year) else { return nil }
-        guard let row = sessionGroups[session.year]?.indexOf(session) else { return nil }
-
-        return NSIndexPath(forRow: row, inSection: section)
+        for session in sessions where session.id == Int(key) {
+            if let indexPath = self.tableModel.indexPathForElement(session) {
+                return indexPath
+            }
+        }
+        return nil
     }
     
     // MARK: Session displaying and playback from URLs
@@ -138,18 +157,30 @@ class VideosViewController: UITableViewController {
     }
     
     func displaySession(key: String) {
+        self.view = self.view  // force view loading when first showing
         guard let indexPath = indexPathForSessionWithKey(key) else { return }
-        
-        selectSessionAtIndexPath(indexPath)
+
+        initialSelectionPath = indexPath        
     }
 
     func playSession(key: String) {
         displaySession(key)
-        
+
         guard let detailVC = detailViewController else { return }
+
+        delay(0.2) { () -> () in
+            detailVC.watch(nil)
+        }
         
-        detailVC.watch(nil)
     }
 
 }
 
+func delay(delay:Double, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
+}

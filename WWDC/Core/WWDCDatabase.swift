@@ -22,8 +22,11 @@ private let _sharedWWDCDatabase = WWDCDatabase()
 typealias SessionsUpdatedCallback = () -> Void
 
 @objc class WWDCDatabase: NSObject {
+
+    private let BUILD2016 = false       //TEMPORARY
     
     private struct Constants {
+        static let temporaryLocalFileURL:URLLocalFileConvertible = "index.json".localURL()
         static let internalServiceURL = "http://wwdc.guilhermerambo.me/index.json"
         static let asciiServiceBaseURL = "http://asciiwwdc.com/"
     }
@@ -92,7 +95,11 @@ typealias SessionsUpdatedCallback = () -> Void
             self.config = fetchedConfig[0]
         }
         
-        fetchOrUpdateAppleServiceURLs()
+        if(BUILD2016) {
+            fetchOrUpdateAppleServiceURLs(Constants.temporaryLocalFileURL)
+        } else {
+            fetchOrUpdateAppleServiceURLs(Constants.internalServiceURL)
+        }
     }
     
     /// Returns the list of sessions available sorted by year and session id
@@ -132,8 +139,8 @@ typealias SessionsUpdatedCallback = () -> Void
     /// Orders the videos by year (descending) and session number (ascending)
     lazy var sortDescriptorsForSessionList: [SortDescriptor] = [SortDescriptor(property: "year", ascending: false), SortDescriptor(property: "id", ascending: true)]
     
-    private func fetchOrUpdateAppleServiceURLs() {
-        Alamofire.request(.GET, Constants.internalServiceURL).response { _, _, data, error in
+    private func fetchOrUpdateAppleServiceURLs(url:URLStringConvertible) {
+        AlamofireExt.request(.GET, url).response { _, _, data, error in
             guard let jsonData = data else {
                 print("No data returned from internal server!")
                 return
@@ -153,7 +160,8 @@ typealias SessionsUpdatedCallback = () -> Void
     }
     
     private func updateSessionVideos() {
-        Alamofire.request(.GET, config.videosURL).response { _, _, data, error in
+//        Alamofire.request(.GET, config.videosURL).response { _, _, data, error in
+        let handler:(NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Void = { _, _, data, error in
             dispatch_async(self.bgThread) {
                 let backgroundRealm = try! Realm()
                 
@@ -209,6 +217,11 @@ typealias SessionsUpdatedCallback = () -> Void
                 
                 mainQ { self.sessionListChangedCallback?(newSessionKeys: newSessionKeys) }
             }
+        }
+        if (config.videosURL.containsString("/")) {
+            Alamofire.request(.GET, config.videosURL).response(queue: nil, completionHandler: handler)
+        } else {
+            AlamofireExt.request(.GET, config.videosURL.localURL()).response(queue: nil, completionHandler: handler)
         }
     }
     
