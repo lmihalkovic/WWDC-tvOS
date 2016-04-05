@@ -42,3 +42,11 @@ The only steps required before you build is to pull down the code and submodules
 
 	$ git clone --recursive https://github.com/insidegui/WWDC-tvOS.git
 	
+## Trademarks
+
+Apple, the Apple logo and other Apple trademarks, service marks, graphics, and logos are trademarks or registered trademarks of Apple Inc. in the US and/or other countries. 
+
+Other marks, service marks, graphics, and logos may be the trademarks or registered trademarks of their respective owners. 
+
+You are granted no right or license in any of the aforesaid trademarks, and further agree that you shall not remove, obscure, or alter any proprietary notices (including trademark and copyright notices) that may be affixed to or contained within this project.
+
