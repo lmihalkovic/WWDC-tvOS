@@ -32,11 +32,11 @@ Results are currently presented in two columns, with a behavior reminicent of th
 
 None.
 
-### And one more thing...
+### One more thing...
 
 I think there are many interesting things out there for programmers to watch outside of the Apple WWDC. This is a work-in-progress revamping of the app that will probably end-up located in a different repo.
 
-The complete Microsoft Build 2016 event:
+The complete [Microsoft Build 2016](https://channel9.msdn.com/Events/Build/2016) event:
 ![screenshot](screenshots/build2016-1.png)
 
 ... starting with the Keynote presentation on their cloud offering:
