@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD0C1BD51BFE884E00383F29 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD0C1BD31BFE884E00383F29 /* Realm.framework */; };
-		DD0C1BD61BFE884E00383F29 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD0C1BD31BFE884E00383F29 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DD0C1BD71BFE884E00383F29 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD0C1BD41BFE884E00383F29 /* RealmSwift.framework */; };
-		DD0C1BD81BFE884E00383F29 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD0C1BD41BFE884E00383F29 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4DB2C9A71CBD8A27001356C9 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB2C9A51CBD8A27001356C9 /* Realm.framework */; };
+		4DB2C9A81CBD8A27001356C9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB2C9A61CBD8A27001356C9 /* RealmSwift.framework */; };
 		DD64C94B1C2B131100960611 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD64C94A1C2B131100960611 /* TVServices.framework */; };
 		DD64C94E1C2B131100960611 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD64C94D1C2B131100960611 /* ServiceProvider.swift */; };
 		DD64C9521C2B131100960611 /* WWDC Top Shelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DD64C9481C2B131100960611 /* WWDC Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -103,9 +101,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DD0C1BD81BFE884E00383F29 /* RealmSwift.framework in Embed Frameworks */,
 				DDE4901E1BFF6381001F157B /* Alamofire.framework in Embed Frameworks */,
-				DD0C1BD61BFE884E00383F29 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,8 +120,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DD0C1BD31BFE884E00383F29 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = vendor/Realm.framework; sourceTree = "<group>"; };
-		DD0C1BD41BFE884E00383F29 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = vendor/RealmSwift.framework; sourceTree = "<group>"; };
+		4DB2C9A51CBD8A27001356C9 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = vendor/xcode7.3/Realm.framework; sourceTree = "<group>"; };
+		4DB2C9A61CBD8A27001356C9 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = vendor/xcode7.3/RealmSwift.framework; sourceTree = "<group>"; };
 		DD64C9481C2B131100960611 /* WWDC Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WWDC Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD64C94A1C2B131100960611 /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
 		DD64C94D1C2B131100960611 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
@@ -159,9 +155,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD0C1BD71BFE884E00383F29 /* RealmSwift.framework in Frameworks */,
+				4DB2C9A71CBD8A27001356C9 /* Realm.framework in Frameworks */,
 				DDE4901D1BFF6381001F157B /* Alamofire.framework in Frameworks */,
-				DD0C1BD51BFE884E00383F29 /* Realm.framework in Frameworks */,
+				4DB2C9A81CBD8A27001356C9 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,9 +259,9 @@
 		DDE490211BFF6398001F157B /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				4DB2C9A51CBD8A27001356C9 /* Realm.framework */,
+				4DB2C9A61CBD8A27001356C9 /* RealmSwift.framework */,
 				DDE490221BFF63A4001F157B /* SwiftyJSON.swift */,
-				DD0C1BD41BFE884E00383F29 /* RealmSwift.framework */,
-				DD0C1BD31BFE884E00383F29 /* Realm.framework */,
 				DDE490051BFF636E001F157B /* Alamofire.xcodeproj */,
 			);
 			name = Libraries;
@@ -627,6 +623,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/vendor",
+					"$(PROJECT_DIR)/vendor/xcode7.3",
 				);
 				INFOPLIST_FILE = WWDC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -645,6 +642,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/vendor",
+					"$(PROJECT_DIR)/vendor/xcode7.3",
 				);
 				INFOPLIST_FILE = WWDC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
